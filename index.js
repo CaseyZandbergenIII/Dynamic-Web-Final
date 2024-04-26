@@ -89,13 +89,19 @@ app.get("/change", (req, res) => {
 
 // Update changed reservations in db and display confirmation
 app.post("/change", (req, res) => {
-    const {firstName, lastName, partySize, date, time, id} = req.body;
+    const { firstName, lastName, partySize, date, time, id } = req.body;
     const query = "UPDATE reservations SET first_name = ?, last_name = ?, party_size = ?, date = ?, time = ? WHERE id = ?";
 
     conn.query(query, [firstName, lastName, partySize, date, time, id], (error, results) => {
-        if(error) throw error;
+        if (error) throw error;
 
-        // Redirect to an html page displaying formated confirmation
+        // Check if any rows were affected by the update
+        if (results.affectedRows === 0) {
+            // If no rows were affected, the reservation with the provided ID was not found
+            return res.sendFile(path.join(__dirname, "public/html/no_results.html"));
+        }
+
+        // Redirect to an HTML page displaying formatted confirmation
         res.sendFile(path.join(__dirname, "public/html/changed_reservation.html"));
     });
 });

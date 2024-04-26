@@ -5,6 +5,58 @@
     <title>Make Reservation</title>
     <!--Link to style sheet-->
     <link rel="stylesheet" href="../css/form-style.css">
+    <script>
+        function validateDate() {
+            var inputDate = document.getElementById('date').value;
+            var minDate = new Date('2024-04-26');
+            var maxDate = new Date('2025-04-26');
+            var selectedDate = new Date(inputDate);
+            var dateParts = inputDate.split('-');
+            var year = parseInt(dateParts[0]);
+            var month = parseInt(dateParts[1]);
+            var day = parseInt(dateParts[2]);
+
+            var thirtyone_months = [1, 3, 5, 7, 8, 10, 12];
+            var thirty_months = [4, 6, 9, 11];
+
+            if (month < 1 || month > 12) {
+                alert('Please enter a valid month (1-12).');
+                return false;
+            }
+
+            if(day < 1 || day > 31){
+                alert("Please enter a valid day (1-31)");
+                return false;
+            }
+
+            if(month === 2 && day > 29){
+                alert("Please enter a valid day (1-29)")
+                return false;
+            }
+            
+            for(i = 0; i < thirty_months.length; i++){
+                if(month === thirty_months[i]){
+                    if(day > 30){
+                        alert("Please enter a valid day (1-30)");
+                        return false;
+                    }
+                }
+            }
+
+
+            if (isNaN(year) || isNaN(month) || isNaN(day)) {
+                alert('Please enter a valid date.');
+                return false;
+            }
+
+            if (selectedDate < minDate || selectedDate > maxDate) {
+                alert('Please select a date within the range: 2024-04-26 to 2025-04-26');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 <body>
     <div class="form-container">
@@ -17,7 +69,7 @@
             <img src="../images/res-page-right.jpeg" alt="Right Image">
         </div>
         <!--Form for making a reservation-->
-        <form action="#" method="post">
+        <form action="#" method="post" onsubmit="return validateDate();">
             <label for="firstName" class="form-label">First Name:</label>
             <input type="text" id="firstName" name="firstName" class="form-input" required>
 
@@ -25,10 +77,10 @@
             <input type="text" id="lastName" name="lastName" class="form-input" required>
 
             <label for="partySize" class="form-label">Party Size:</label>
-            <input type="number" id="partySize" name="partySize" class="form-input" required min="1">
+            <input type="number" id="partySize" name="partySize" class="form-input" required min="1" max="50">
 
             <label for="date" class="form-label">Date (YYYY-MM-DD):</label>
-            <input type="text" id="date" name="date" class="form-input" required placeholder="YYYY-MM-DD">
+            <input type="text" id="date" name="date" class="form-input" required pattern="\d{4}-\d{2}-\d{2}" title="Please enter a date in the format YYYY-MM-DD" min="2024-04-26" max="2025-04-26">
 
             <label for="time" class="form-label">Time:</label>
             <input type="time" id="time" name="time" class="form-input" required>
