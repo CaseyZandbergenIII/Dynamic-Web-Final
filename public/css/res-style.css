@@ -8,3 +8,16 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+/*Return button styling*/
+.return-home-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: maroon    ;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.return-home-btn:hover {
+    background-color: brown;
+}
