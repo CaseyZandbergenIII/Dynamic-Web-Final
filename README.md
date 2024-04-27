@@ -1,7 +1,8 @@
 # Project Setup
 
 **Database**
-1. Run all commands in db-init.sql in order
+1. Install mysql community version
+2. Run all commands in db-init.sql in order
 
 **Install Dependencies**
 1. npm init -y
